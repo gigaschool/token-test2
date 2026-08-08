@@ -3,26 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Alex Ray | Full-Stack Engineer & Creative Developer</title>
-  <meta name="description" content="フルスタックエンジニア Alex Ray の自己紹介・ポートフォリオWebサイト。React, Next.js, TypeScript, AI統合Webアプリ開発などを得意としています。" />
-  <meta name="keywords" content="フルスタックエンジニア, ポートフォリオ, 自己紹介, Web開発者, React, Next.js, TypeScript, AI開発" />
+  <title>Alex Ray | Full-Stack Engineer & Neumorphic Portfolio</title>
+  <meta name="description" content="フルスタックエンジニア Alex Ray の自己紹介・ポートフォリオWebサイト (Neumorphism & Soft Glow デザイン版)。" />
+  <meta name="keywords" content="フルスタックエンジニア, ポートフォリオ, ニューモルフィズム, ソフトグロー, Web開発者, React, Next.js, TypeScript" />
 
-  <!-- Open Graph / Social Media -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Alex Ray | Full-Stack Engineer Portfolio" />
-  <meta property="og:description" content="モダンなWeb技術とUI/UXデザインを融合させたポートフォリオサイト。" />
-
-  <!-- CSS Design System -->
+  <!-- CSS Neumorphic Design System -->
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-  <!-- Scroll Progress Indicator -->
+  <!-- Scroll Progress Bar -->
   <div id="scroll-progress" class="scroll-progress"></div>
 
-  <!-- Header & Navigation Bar -->
+  <!-- Neumorphic Floating Navigation Bar -->
   <header class="navbar">
-    <div class="container nav-container">
+    <div class="nav-container">
       <a href="#hero" class="logo" id="nav-logo">
         <span class="logo-badge">A</span>
         <span>Alex<span class="gradient-text">Ray</span></span>
@@ -42,7 +37,7 @@
 
       <div class="nav-actions">
         <button id="theme-toggle" class="theme-btn" title="テーマ切り替え (Dark / Light / Cyber)">🌙</button>
-        <a href="#contact" class="btn btn-primary" style="padding: 8px 20px; font-size: 0.85rem;">Contact Me</a>
+        <a href="#contact" class="btn btn-primary" style="padding: 8px 22px; font-size: 0.85rem;">Contact Me</a>
         <button id="mobile-toggle" class="mobile-toggle" aria-label="Toggle Navigation Menu">☰</button>
       </div>
     </div>
@@ -55,12 +50,13 @@
         <div class="hero-grid">
           <div class="hero-text-content">
             <div class="status-badge" id="availability-status">
-              🟢 新規プロジェクト・フリーランス受託対応中
+              <span class="status-dot"></span>
+              新規プロジェクト・受託開発 対応中
             </div>
             
             <h1 class="hero-title">
-              ユーザーを魅了する<br />
-              <span class="gradient-text">デジタル体験を創造する</span>
+              柔らかい立体感と<br />
+              <span class="gradient-text">光が紡ぐWeb体験</span>
             </h1>
 
             <div class="typing-container">
@@ -70,23 +66,22 @@
             </div>
 
             <p class="hero-description">
-              はじめまして！フルスタックエンジニア兼クリエイティブディベロッパーの Alex Ray（アレックス レイ）です。
-              React / Next.js, Node.js, AIモデルの統合を通して、見た目が美しく高パフォーマンスなWebアプリケーションを開発しています。
+              Alex Ray（アレックス レイ）のポートフォリオへようこそ。
+              ニューモルフィズムによる繊細な陰影とソフトな発光エフェクトで、次世代の美しいインタラクティブUIを表現しています。
             </p>
 
             <div class="hero-buttons">
               <a href="#projects" class="btn btn-primary">制作実績を見る 🚀</a>
-              <a href="#contact" class="btn btn-secondary">お問い合わせ 💬</a>
+              <a href="#contact" class="btn">お問い合わせ 💬</a>
             </div>
           </div>
 
           <div class="hero-avatar-wrapper">
-            <div class="avatar-glow"></div>
             <div class="avatar-card">
-              <img src="assets/images/avatar.jpg" alt="Alex Ray Developer Portrait" id="profile-avatar-img" />
+              <img src="assets/images/avatar-neu.jpg" alt="Alex Ray Neumorphic Developer Portrait" id="profile-avatar-img" />
               <div class="avatar-badge">
                 <strong>Alex Ray</strong>
-                Full-Stack Engineer / Creative Lead
+                Full-Stack Engineer & UI Architect
               </div>
             </div>
           </div>
@@ -104,62 +99,62 @@
       <div class="container">
         <div class="section-header">
           <span class="section-subtitle">01 // ABOUT ME</span>
-          <h2 class="section-title">私について & 開発へのこだわり</h2>
+          <h2 class="section-title">私について & 開発哲学</h2>
         </div>
 
         <div class="about-grid">
           <div class="about-content">
             <p>
-              私は東京を拠点に活動するフルスタack開発者です。フロントエンドの細部へのこだわりと、バックエンドの堅牢なアーキテクチャ設計を両立させることをモットーとしています。
+              東京を拠点に活動するフルスタック開発者です。ニューモルフィズム（Neumorphism）が持つ直感的な触感と、ソフトグローがもたらす未来感を融合させたスタイリッシュなUI制作を得意としています。
             </p>
             <p>
-              単に「コードを書く」だけでなく、プロダクトがもたらすビジネス価値や、ユーザーが触れたときの「直感的で感動的な操作感」を第一に考えています。最新のWeb規格、アクセシビリティ、パフォーマンス最適化に常に情熱を注いでいます。
+              見た目の美しさだけでなく、コンポーネント構造の最適化、状態管理のシンプル化、そして高速なパフォーマンス維持を徹底しています。
             </p>
 
             <div class="about-highlights">
               <div class="highlight-box">
-                <div class="highlight-title">✨ UI/UX Excellence</div>
-                <div class="highlight-desc">マイクロスムーズアニメーションと洗練されたデザインシステム</div>
+                <div class="highlight-title">✨ Soft Shadow & Glow</div>
+                <div class="highlight-desc">触れたくなるような柔らかい立体感と発光デザイン</div>
               </div>
               <div class="highlight-box">
-                <div class="highlight-title">⚡ High Performance</div>
-                <div class="highlight-desc">Lighthouseスコア95+を目指す高速レスポンス設計</div>
+                <div class="highlight-title">⚡ High Speed Performance</div>
+                <div class="highlight-desc">パフォーマンススコア95+を目指す軽量コード実装</div>
               </div>
               <div class="highlight-box">
-                <div class="highlight-title">🤖 AI-Powered</div>
-                <div class="highlight-desc">LLM・OpenAI APIを活用したスマートWebプロダクト構築</div>
+                <div class="highlight-title">🤖 AI Agent Integration</div>
+                <div class="highlight-desc">LLMやAPIを活用したスマートWebシステム構築</div>
               </div>
               <div class="highlight-box">
-                <div class="highlight-title">🛡️ Clean Architecture</div>
-                <div class="highlight-desc">TypeScriptを用いた堅牢で保守しやすい型安全な開発</div>
+                <div class="highlight-title">🛡️ Type-Safe Codebase</div>
+                <div class="highlight-desc">TypeScript & Modern JS による保守性の高い開発</div>
               </div>
             </div>
           </div>
 
-          <div class="glass-card" style="padding: 32px; display: flex; flex-direction: column; justify-content: center; gap: 20px;">
-            <h3 style="font-family: var(--font-heading); font-size: 1.4rem; color: var(--accent-cyan);">
+          <div class="neu-card" style="padding: 36px; display: flex; flex-direction: column; justify-content: center; gap: 24px;">
+            <h3 style="font-family: var(--font-heading); font-size: 1.4rem; color: var(--glow-emerald);">
               💡 開発理念・Core Values
             </h3>
-            <div style="display: flex; flex-direction: column; gap: 16px;">
-              <div style="display: flex; gap: 14px; align-items: flex-start;">
-                <span style="font-size: 1.4rem;">🎯</span>
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+              <div style="display: flex; gap: 16px; align-items: flex-start;">
+                <span style="font-size: 1.5rem;">🎯</span>
                 <div>
-                  <strong>ユーザー第一思考 (User Centric)</strong>
-                  <p style="font-size: 0.88rem; color: var(--text-muted);">常に使う人の視点に立ち、ストレスのない快適なフローを実現します。</p>
+                  <strong>ユーザー体験の美学 (Tactile UX)</strong>
+                  <p style="font-size: 0.88rem; color: var(--text-muted);">凹凸感と光の演出で、操作しているだけで楽しい体験を提供します。</p>
                 </div>
               </div>
-              <div style="display: flex; gap: 14px; align-items: flex-start;">
-                <span style="font-size: 1.4rem;">🔬</span>
+              <div style="display: flex; gap: 16px; align-items: flex-start;">
+                <span style="font-size: 1.5rem;">🔬</span>
                 <div>
-                  <strong>継続的探求 (Continuous Curiosity)</strong>
-                  <p style="font-size: 0.88rem; color: var(--text-muted);">新しい技術やライブラリを迅速にキャッチアップし実践に投入します。</p>
+                  <strong>先端技術の調和</strong>
+                  <p style="font-size: 0.88rem; color: var(--text-muted);">デザインのトレンドと最新フロントエンド技術を高い次元でバランスします。</p>
                 </div>
               </div>
-              <div style="display: flex; gap: 14px; align-items: flex-start;">
-                <span style="font-size: 1.4rem;">🤝</span>
+              <div style="display: flex; gap: 16px; align-items: flex-start;">
+                <span style="font-size: 1.5rem;">🤝</span>
                 <div>
-                  <strong>円滑なコミュニケーション</strong>
-                  <p style="font-size: 0.88rem; color: var(--text-muted);">クライアントやチームと密に連携し、透明性の高い開発プロセスを推進します。</p>
+                  <strong>オープンなコミュニケーション</strong>
+                  <p style="font-size: 0.88rem; color: var(--text-muted);">プロジェクトの進捗や課題を共有し、チーム全体で高品質を目指します。</p>
                 </div>
               </div>
             </div>
@@ -229,23 +224,21 @@
       <div class="container">
         <div class="section-header">
           <span class="section-subtitle">05 // INTERACTIVE DEMO</span>
-          <h2 class="section-title">AI アシスタント インタラクティブ体験</h2>
+          <h2 class="section-title">Neumorphic Playground</h2>
         </div>
 
-        <div class="playground-box">
+        <div class="neu-card playground-box">
           <h3 style="font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 12px;">
             🤖 AI Portfolio Bot に質問するデモ
           </h3>
-          <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px;">
-            ボタンをクリックすると、ポートフォリオAIが私の強みや特徴をインタラクティブに回答します。
+          <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 24px;">
+            ボタンをクリックすると、AIが新デザインの特徴や開発実績をソフトグロー付きでインタラクティブに回答します。
           </p>
 
           <div class="interactive-demo">
-            <div class="demo-controls">
-              <button class="btn btn-primary" id="playground-run-btn">
-                AIに質問を実行する ⚡
-              </button>
-            </div>
+            <button class="btn btn-primary" id="playground-run-btn">
+              AIに質問を実行する ⚡
+            </button>
             <div class="demo-output-box" id="playground-output">
               👉 上のボタンを押して AI の回答をテストしてみてください！
             </div>
@@ -267,31 +260,31 @@
             <h3 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 12px;">
               新しいプロジェクトをお考えですか？
             </h3>
-            <p style="color: var(--text-muted); margin-bottom: 20px;">
-              Webアプリ開発のご依頼、デザインシステム構築、技術顧問、またはフランクなお話し合いまで、いつでもお気軽にご連絡ください！
+            <p style="color: var(--text-muted); margin-bottom: 24px;">
+              Webアプリ開発のご依頼、UIデザインリニューアル、技術相談など、お気軽にどうぞ！
             </p>
 
-            <div class="info-item glass-card">
+            <div class="info-item neu-card">
               <div class="info-icon">✉️</div>
               <div>
-                <div class="info-label">Email Address</div>
-                <div class="info-value">alex.ray.dev@example.com</div>
+                <div class="info-label" style="font-size: 0.8rem; color: var(--text-muted);">Email Address</div>
+                <div class="info-value" style="font-weight: 700;">alex.ray.dev@example.com</div>
               </div>
             </div>
 
-            <div class="info-item glass-card">
+            <div class="info-item neu-card">
               <div class="info-icon">📍</div>
               <div>
-                <div class="info-label">Current Location</div>
-                <div class="info-value">Tokyo, Japan (Remote Available)</div>
+                <div class="info-label" style="font-size: 0.8rem; color: var(--text-muted);">Current Location</div>
+                <div class="info-value" style="font-weight: 700;">Tokyo, Japan (Remote Available)</div>
               </div>
             </div>
 
-            <div class="info-item glass-card">
+            <div class="info-item neu-card">
               <div class="info-icon">🌐</div>
               <div>
-                <div class="info-label">Social Media</div>
-                <div style="display: flex; gap: 12px; margin-top: 4px;">
+                <div class="info-label" style="font-size: 0.8rem; color: var(--text-muted);">Social Media</div>
+                <div style="display: flex; gap: 12px; margin-top: 6px;">
                   <a href="https://github.com" target="_blank" class="icon-link">💻</a>
                   <a href="https://twitter.com" target="_blank" class="icon-link">🐦</a>
                   <a href="https://linkedin.com" target="_blank" class="icon-link">💼</a>
@@ -300,7 +293,7 @@
             </div>
           </div>
 
-          <form id="contact-form" class="contact-form glass-card">
+          <form id="contact-form" class="contact-form neu-card">
             <div class="form-group">
               <label for="form-name">お名前 / 貴社名</label>
               <input type="text" id="form-name" class="form-input" placeholder="山田 太郎" required />
@@ -325,12 +318,12 @@
     </section>
   </main>
 
-  <!-- Modal Component for Project Details -->
+  <!-- Modal Component -->
   <div id="modal-overlay" class="modal-overlay">
-    <div class="modal-content glass-card">
+    <div class="modal-content neu-card">
       <button id="modal-close" class="modal-close" aria-label="Close Modal">✕</button>
       <div id="modal-body-content">
-        <!-- Content inserted dynamically -->
+        <!-- Dynamic content -->
       </div>
     </div>
   </div>
@@ -342,13 +335,13 @@
   <footer class="footer">
     <div class="container footer-container">
       <div>
-        © 2026 <strong>Alex Ray</strong>. Built with HTML, Vanilla CSS & Modern JavaScript.
+        © 2026 <strong>Alex Ray</strong>. Neumorphism & Soft Glow Portfolio (v2).
       </div>
       <a href="#hero" class="back-to-top" title="Topへ戻る">↑</a>
     </div>
   </footer>
 
-  <!-- JavaScript Modules -->
+  <!-- JS Modules -->
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
 </body>

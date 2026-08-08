@@ -1,9 +1,9 @@
 /**
- * Main Application Logic & Interactive Features
+ * Main Application Logic & Neumorphic Interactive Features (v2)
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize Canvas Background
+  // Initialize Background Canvas
   initBackgroundCanvas();
 
   // Populate Dynamic Content from PORTFOLIO_DATA
@@ -37,7 +37,7 @@ function initBackgroundCanvas() {
   let height = canvas.height = window.innerHeight;
 
   const particles = [];
-  const particleCount = Math.floor((width * height) / 18000);
+  const particleCount = Math.floor((width * height) / 20000);
 
   let mouseX = width / 2;
   let mouseY = height / 2;
@@ -63,14 +63,13 @@ function initBackgroundCanvas() {
       this.size = Math.random() * 2 + 0.5;
       this.vx = (Math.random() - 0.5) * 0.4;
       this.vy = (Math.random() - 0.5) * 0.4;
-      this.alpha = Math.random() * 0.5 + 0.2;
+      this.alpha = Math.random() * 0.4 + 0.2;
     }
 
     update() {
       this.x += this.vx;
       this.y += this.vy;
 
-      // Mouse influence
       const dx = mouseX - this.x;
       const dy = mouseY - this.y;
       const dist = Math.sqrt(dx * dx + dy * dy);
@@ -88,7 +87,7 @@ function initBackgroundCanvas() {
     draw() {
       ctx.save();
       ctx.globalAlpha = this.alpha;
-      ctx.fillStyle = '#00f2fe';
+      ctx.fillStyle = '#00f5d4';
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
       ctx.fill();
@@ -103,10 +102,9 @@ function initBackgroundCanvas() {
   function animate() {
     ctx.clearRect(0, 0, width, height);
 
-    // Draw subtle glowing background circles
     ctx.save();
     const grad1 = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, 400);
-    grad1.addColorStop(0, 'rgba(0, 242, 254, 0.04)');
+    grad1.addColorStop(0, 'rgba(0, 245, 212, 0.04)');
     grad1.addColorStop(1, 'transparent');
     ctx.fillStyle = grad1;
     ctx.fillRect(0, 0, width, height);
@@ -131,10 +129,10 @@ function initTypingEffect() {
   if (!target) return;
 
   const words = [
+    "Neumorphic UI Specialist",
     "Full-Stack Web Developer",
-    "Creative UI/UX Engineer",
-    "AI & LLM Integration Specialist",
-    "TypeScript & Modern Web Passionate"
+    "Creative Technical Lead",
+    "TypeScript & Soft Glow Dev"
   ];
 
   let wordIdx = 0;
@@ -156,12 +154,12 @@ function initTypingEffect() {
     }
 
     if (!isDeleting && charIdx === currentWord.length) {
-      speed = 2000; // Pause at end of word
+      speed = 2000;
       isDeleting = true;
     } else if (isDeleting && charIdx === 0) {
       isDeleting = false;
       wordIdx = (wordIdx + 1) % words.length;
-      speed = 500; // Pause before new word
+      speed = 500;
     }
 
     setTimeout(type, speed);
@@ -171,7 +169,7 @@ function initTypingEffect() {
 }
 
 /* ==========================================================================
-   3. Navigation, Scroll Progress & Mobile Menu
+   3. Navigation & Scroll Progress
    ========================================================================== */
 function initNavigation() {
   const navbar = document.querySelector('.navbar');
@@ -181,19 +179,16 @@ function initNavigation() {
   const navLinksContainer = document.querySelector('.nav-links');
 
   window.addEventListener('scroll', () => {
-    // Scroll progress bar width
     const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
     const progress = (window.scrollY / totalHeight) * 100;
     if (scrollProgress) scrollProgress.style.width = `${progress}%`;
 
-    // Sticky navbar styling
-    if (window.scrollY > 50) {
+    if (window.scrollY > 40) {
       navbar?.classList.add('scrolled');
     } else {
       navbar?.classList.remove('scrolled');
     }
 
-    // Active nav link highlight
     const sections = document.querySelectorAll('section[id]');
     let current = '';
 
@@ -212,7 +207,6 @@ function initNavigation() {
     });
   });
 
-  // Mobile menu toggle
   if (mobileToggle && navLinksContainer) {
     mobileToggle.addEventListener('click', () => {
       navLinksContainer.classList.toggle('active');
@@ -244,25 +238,24 @@ function initThemeSwitch() {
 
     document.documentElement.setAttribute('data-theme', newTheme);
     
-    // Icon updates
     if (newTheme === 'dark') themeBtn.textContent = '🌙';
     else if (newTheme === 'light') themeBtn.textContent = '☀️';
     else if (newTheme === 'cyber') themeBtn.textContent = '⚡';
 
-    showToast(`テーマを [ ${newTheme.toUpperCase()} ] に変更しました`);
+    showToast(`テーマを [ Neumorphism ${newTheme.toUpperCase()} ] に変更しました`);
   });
 }
 
 /* ==========================================================================
-   5. Dynamic Content Rendering Functions
+   5. Dynamic Content Rendering
    ========================================================================== */
 function renderHeroStats() {
   const statsContainer = document.getElementById('stats-grid');
   if (!statsContainer) return;
 
   statsContainer.innerHTML = PORTFOLIO_DATA.profile.stats.map(stat => `
-    <div class="stat-item glass-card">
-      <div class="stat-number" data-count="${parseFloat(stat.value)}">${stat.value}${stat.suffix}</div>
+    <div class="stat-item neu-card">
+      <div class="stat-number">${stat.value}${stat.suffix}</div>
       <div class="stat-label">${stat.label}</div>
     </div>
   `).join('');
@@ -277,7 +270,7 @@ function renderSkills(categoryFilter = 'all') {
     : PORTFOLIO_DATA.skills.filter(s => s.category === categoryFilter);
 
   skillsContainer.innerHTML = filtered.map(skill => `
-    <div class="skill-card glass-card">
+    <div class="skill-card neu-card">
       <div class="skill-header">
         <div class="skill-icon">${skill.icon}</div>
         <div class="skill-title-wrap">
@@ -305,7 +298,7 @@ function renderProjects(categoryFilter = 'all') {
     : PORTFOLIO_DATA.projects.filter(p => p.category === categoryFilter);
 
   projectsContainer.innerHTML = filtered.map(project => `
-    <div class="project-card glass-card" data-project-id="${project.id}">
+    <div class="project-card neu-card" data-project-id="${project.id}">
       <div class="project-img-wrapper">
         <img src="${project.image}" alt="${project.title}" loading="lazy" />
         <span class="project-category-badge">${project.categoryName}</span>
@@ -317,7 +310,7 @@ function renderProjects(categoryFilter = 'all') {
           ${project.tags.map(t => `<span class="tag">${t}</span>`).join('')}
         </div>
         <div class="project-footer">
-          <button class="btn btn-secondary view-detail-btn" style="padding: 6px 16px; font-size: 0.85rem;" onclick="openProjectModal('${project.id}')">
+          <button class="btn" style="padding: 6px 16px; font-size: 0.85rem;" onclick="openProjectModal('${project.id}')">
             詳細を見る 🔍
           </button>
           <div class="project-links">
@@ -337,7 +330,7 @@ function renderTimeline() {
   timelineContainer.innerHTML = PORTFOLIO_DATA.experiences.map(exp => `
     <div class="timeline-item">
       <div class="timeline-dot"></div>
-      <div class="timeline-card glass-card">
+      <div class="timeline-card neu-card">
         <div class="timeline-header">
           <h4 class="timeline-role">${exp.role}</h4>
           <span class="timeline-period">${exp.period}</span>
@@ -350,10 +343,9 @@ function renderTimeline() {
 }
 
 /* ==========================================================================
-   6. Filtering Logic for Skills & Projects
+   6. Filtering Logic
    ========================================================================== */
 function initFilterTabs() {
-  // Skill Filters
   const skillTabs = document.querySelectorAll('.skill-tab');
   skillTabs.forEach(tab => {
     tab.addEventListener('click', () => {
@@ -363,7 +355,6 @@ function initFilterTabs() {
     });
   });
 
-  // Project Filters
   const projectTabs = document.querySelectorAll('.project-tab');
   projectTabs.forEach(tab => {
     tab.addEventListener('click', () => {
@@ -375,21 +366,16 @@ function initFilterTabs() {
 }
 
 /* ==========================================================================
-   7. Modal Dialog Logic
+   7. Modal Dialog
    ========================================================================== */
 function initModal() {
   const overlay = document.getElementById('modal-overlay');
   const closeBtn = document.getElementById('modal-close');
 
   if (closeBtn && overlay) {
-    closeBtn.addEventListener('click', () => {
-      overlay.classList.remove('active');
-    });
-
+    closeBtn.addEventListener('click', () => overlay.classList.remove('active'));
     overlay.addEventListener('click', (e) => {
-      if (e.target === overlay) {
-        overlay.classList.remove('active');
-      }
+      if (e.target === overlay) overlay.classList.remove('active');
     });
   }
 }
@@ -403,24 +389,24 @@ window.openProjectModal = function(projectId) {
 
   if (overlay && modalBody) {
     modalBody.innerHTML = `
-      <img src="${project.image}" alt="${project.title}" style="width:100%; height:260px; object-fit:cover; border-radius:12px; margin-bottom:20px;" />
+      <img src="${project.image}" alt="${project.title}" style="width:100%; height:260px; object-fit:cover; border-radius:16px; margin-bottom:20px; box-shadow: var(--neu-shadow-inset);" />
       <span class="section-subtitle">${project.categoryName}</span>
       <h2 style="font-family: var(--font-heading); font-size: 1.8rem; margin-bottom:14px;">${project.title}</h2>
       <p style="color: var(--text-muted); font-size: 1.05rem; margin-bottom: 20px;">${project.description}</p>
       
-      <h4 style="font-family: var(--font-heading); margin-bottom: 10px; color: var(--accent-cyan);">主な機能 & 実装ポイント</h4>
+      <h4 style="font-family: var(--font-heading); margin-bottom: 10px; color: var(--glow-emerald);">主な機能 & 実装ポイント</h4>
       <ul style="list-style-type: none; margin-bottom: 24px;">
         ${project.features.map(f => `<li style="padding: 6px 0; color: var(--text-muted); font-size: 0.95rem;">✨ ${f}</li>`).join('')}
       </ul>
 
-      <h4 style="font-family: var(--font-heading); margin-bottom: 10px; color: var(--accent-cyan);">使用テクノロジー</h4>
+      <h4 style="font-family: var(--font-heading); margin-bottom: 10px; color: var(--glow-emerald);">使用テクノロジー</h4>
       <div class="skill-tags" style="margin-bottom: 28px;">
         ${project.tags.map(t => `<span class="tag" style="font-size: 0.85rem; padding: 6px 14px;">${t}</span>`).join('')}
       </div>
 
       <div style="display: flex; gap: 14px;">
         <a href="${project.demoUrl}" target="_blank" class="btn btn-primary">ライブデモを見る 🚀</a>
-        <a href="${project.githubUrl}" target="_blank" class="btn btn-secondary">GitHub リポジトリ 💻</a>
+        <a href="${project.githubUrl}" target="_blank" class="btn">GitHub リポジトリ 💻</a>
       </div>
     `;
     overlay.classList.add('active');
@@ -439,15 +425,15 @@ function initCardTiltEffect() {
     const x = e.clientX - rect.left - rect.width / 2;
     const y = e.clientY - rect.top - rect.height / 2;
 
-    const tiltX = (y / rect.height) * -15;
-    const tiltY = (x / rect.width) * 15;
+    const tiltX = (y / rect.height) * -12;
+    const tiltY = (x / rect.width) * 12;
 
     avatarCard.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.02, 1.02, 1.02)`;
   });
 }
 
 /* ==========================================================================
-   9. Scroll Reveal Animations & Observers
+   9. Scroll Reveal Animations
    ========================================================================== */
 function initScrollAnimations() {
   const observerOptions = {
@@ -463,13 +449,13 @@ function initScrollAnimations() {
     });
   }, observerOptions);
 
-  document.querySelectorAll('.section-header, .glass-card, .timeline-item').forEach(el => {
+  document.querySelectorAll('.section-header, .neu-card, .timeline-item').forEach(el => {
     observer.observe(el);
   });
 }
 
 /* ==========================================================================
-   10. Contact Form & Toast Notification
+   10. Contact Form & Toast
    ========================================================================== */
 function initContactForm() {
   const form = document.getElementById('contact-form');
@@ -487,7 +473,6 @@ function initContactForm() {
       return;
     }
 
-    // Submit Simulation
     const submitBtn = form.querySelector('button[type="submit"]');
     if (submitBtn) {
       submitBtn.disabled = true;
@@ -513,12 +498,7 @@ function showToast(message, type = 'success') {
   toast.className = 'toast';
   toast.innerHTML = `<span>${message}</span>`;
 
-  if (type === 'error') {
-    toast.style.borderColor = 'var(--accent-pink)';
-  }
-
   container.appendChild(toast);
-
   setTimeout(() => toast.classList.add('show'), 50);
 
   setTimeout(() => {
@@ -536,14 +516,14 @@ function initPlayground() {
   if (!promptBtn || !outputBox) return;
 
   const responses = [
-    "🤖 「Alex RayはTypeScriptとReact、Next.js、Node.jsに非常に強みを持っています。最新のAIモデル統合アプリ開発も得意分野です！」",
-    "⚡ 「レスポンシブWebデザインとCSSグラデーション、アニメーションの最適化が得意です。UXの満足度99.4%を維持しています！」",
-    "🚀 「フロントエンドからバックエンドAPI、データベース構築まで一貫した開発が可能です。お気軽にお問い合わせください！」"
+    "✨ 「design-v2 ブランチでは Neumorphism & Soft Glow デザインを採用。凹凸のある繊細な立体感と柔らかな発光エフェクトが特徴です！」",
+    "🤖 「Alex RayはTypeScript, Next.js, Node.jsのフルスタック開発およびUI/UXデザイン最適化に強みを持っています。」",
+    "🚀 「現在、新しい受託開発やフリーランスプロジェクトを受付中です！お気軽にお問い合わせフォームからメッセージをお送りください。」"
   ];
 
   let idx = 0;
   promptBtn.addEventListener('click', () => {
-    outputBox.textContent = "AI Agent Executing query...";
+    outputBox.textContent = "Neumorphic AI Executing query...";
     setTimeout(() => {
       outputBox.textContent = responses[idx];
       idx = (idx + 1) % responses.length;
