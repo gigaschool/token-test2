@@ -1,532 +1,225 @@
 /**
- * Main Application Logic & Neumorphic Interactive Features (v2)
+ * Ando-san's 8-Bit World - Interactive Logic
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize Background Canvas
-  initBackgroundCanvas();
-
-  // Populate Dynamic Content from PORTFOLIO_DATA
-  renderHeroStats();
-  renderSkills('all');
-  renderProjects('all');
-  renderTimeline();
-
-  // Initialize Interactive Features
-  initTypingEffect();
-  initNavigation();
-  initThemeSwitch();
-  initFilterTabs();
-  initCardTiltEffect();
-  initScrollAnimations();
-  initContactForm();
-  initPlayground();
-  initModal();
+  initSparkleCanvas();
+  initAndoInteractions();
+  initFortuneSystem();
+  renderProfileStats();
+  renderItemMuseum();
+  initSoundSystem();
 });
 
-/* ==========================================================================
-   1. Background Canvas Animation (Interactive Particles & Glow)
-   ========================================================================== */
-function initBackgroundCanvas() {
+/* --------------------------------------------------------------------------
+   1. Sparkle & Floating Hearts Canvas Background
+   -------------------------------------------------------------------------- */
+function initSparkleCanvas() {
   const canvas = document.createElement('canvas');
-  canvas.id = 'bg-canvas';
+  canvas.id = 'sparkle-canvas';
   document.body.prepend(canvas);
 
   const ctx = canvas.getContext('2d');
   let width = canvas.width = window.innerWidth;
   let height = canvas.height = window.innerHeight;
 
-  const particles = [];
-  const particleCount = Math.floor((width * height) / 20000);
-
-  let mouseX = width / 2;
-  let mouseY = height / 2;
+  const sparkles = [];
+  const sparkleCount = 35;
+  const colors = ['#ff7597', '#52b788', '#ffb703', '#b5179e', '#ffd166'];
 
   window.addEventListener('resize', () => {
     width = canvas.width = window.innerWidth;
     height = canvas.height = window.innerHeight;
   });
 
-  window.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-  });
-
-  class Particle {
-    constructor() {
-      this.reset();
-    }
-
+  class Sparkle {
+    constructor() { this.reset(); }
     reset() {
       this.x = Math.random() * width;
       this.y = Math.random() * height;
-      this.size = Math.random() * 2 + 0.5;
-      this.vx = (Math.random() - 0.5) * 0.4;
-      this.vy = (Math.random() - 0.5) * 0.4;
-      this.alpha = Math.random() * 0.4 + 0.2;
+      this.size = Math.random() * 4 + 2;
+      this.vy = (Math.random() * 0.3) + 0.1;
+      this.alpha = Math.random() * 0.7 + 0.3;
+      this.color = colors[Math.floor(Math.random() * colors.length)];
     }
-
     update() {
-      this.x += this.vx;
-      this.y += this.vy;
-
-      const dx = mouseX - this.x;
-      const dy = mouseY - this.y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-
-      if (dist < 120) {
-        this.x -= (dx / dist) * 0.6;
-        this.y -= (dy / dist) * 0.6;
-      }
-
-      if (this.x < 0 || this.x > width || this.y < 0 || this.y > height) {
-        this.reset();
-      }
+      this.y -= this.vy;
+      if (this.y < -10) this.reset();
     }
-
     draw() {
       ctx.save();
       ctx.globalAlpha = this.alpha;
-      ctx.fillStyle = '#00f5d4';
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.fillStyle = this.color;
+      // Draw 8-bit square star
+      ctx.fillRect(this.x, this.y, this.size, this.size);
       ctx.restore();
     }
   }
 
-  for (let i = 0; i < particleCount; i++) {
-    particles.push(new Particle());
-  }
+  for (let i = 0; i < sparkleCount; i++) sparkles.push(new Sparkle());
 
   function animate() {
     ctx.clearRect(0, 0, width, height);
-
-    ctx.save();
-    const grad1 = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, 400);
-    grad1.addColorStop(0, 'rgba(0, 245, 212, 0.04)');
-    grad1.addColorStop(1, 'transparent');
-    ctx.fillStyle = grad1;
-    ctx.fillRect(0, 0, width, height);
-    ctx.restore();
-
-    particles.forEach(p => {
-      p.update();
-      p.draw();
-    });
-
+    sparkles.forEach(s => { s.update(); s.draw(); });
     requestAnimationFrame(animate);
   }
-
   animate();
 }
 
-/* ==========================================================================
-   2. Typing Animation Effect
-   ========================================================================== */
-function initTypingEffect() {
-  const target = document.getElementById('typing-text');
-  if (!target) return;
+/* --------------------------------------------------------------------------
+   2. Ando-san Click / Stroke Interaction & Floating Particles
+   -------------------------------------------------------------------------- */
+let strokeCount = 0;
+let isAudioEnabled = true;
 
-  const words = [
-    "Neumorphic UI Specialist",
-    "Full-Stack Web Developer",
-    "Creative Technical Lead",
-    "TypeScript & Soft Glow Dev"
-  ];
+function initAndoInteractions() {
+  const andoAvatarBox = document.getElementById('ando-avatar-box');
+  const speechBubble = document.getElementById('ando-speech-bubble');
+  const counterVal = document.getElementById('pet-count-number');
 
-  let wordIdx = 0;
-  let charIdx = 0;
-  let isDeleting = false;
-  let speed = 100;
+  if (!andoAvatarBox) return;
 
-  function type() {
-    const currentWord = words[wordIdx];
+  const heartSymbols = ['💖', '🌸', '✨', '⭐', '🎀', 'どら焼き'];
 
-    if (isDeleting) {
-      target.textContent = currentWord.substring(0, charIdx - 1);
-      charIdx--;
-      speed = 40;
-    } else {
-      target.textContent = currentWord.substring(0, charIdx + 1);
-      charIdx++;
-      speed = 100;
+  andoAvatarBox.addEventListener('click', (e) => {
+    strokeCount++;
+    if (counterVal) counterVal.textContent = strokeCount;
+
+    // Random Speech Bubble Update
+    if (speechBubble) {
+      const quote = ANDO_DATA.quotes[Math.floor(Math.random() * ANDO_DATA.quotes.length)];
+      speechBubble.textContent = quote;
+      speechBubble.style.animation = 'none';
+      void speechBubble.offsetWidth; // Trigger reflow
+      speechBubble.style.animation = 'speech-pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
     }
 
-    if (!isDeleting && charIdx === currentWord.length) {
-      speed = 2000;
-      isDeleting = true;
-    } else if (isDeleting && charIdx === 0) {
-      isDeleting = false;
-      wordIdx = (wordIdx + 1) % words.length;
-      speed = 500;
+    // Spawn 5 Floating Hearts on click
+    for (let i = 0; i < 4; i++) {
+      const offsetX = (Math.random() - 0.5) * 60;
+      const offsetY = (Math.random() - 0.5) * 40;
+      const symbol = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+      spawnFloatingHeart(e.clientX + offsetX, e.clientY + offsetY, symbol);
     }
 
-    setTimeout(type, speed);
-  }
-
-  type();
-}
-
-/* ==========================================================================
-   3. Navigation & Scroll Progress
-   ========================================================================== */
-function initNavigation() {
-  const navbar = document.querySelector('.navbar');
-  const scrollProgress = document.getElementById('scroll-progress');
-  const navLinks = document.querySelectorAll('.nav-link');
-  const mobileToggle = document.getElementById('mobile-toggle');
-  const navLinksContainer = document.querySelector('.nav-links');
-
-  window.addEventListener('scroll', () => {
-    const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = (window.scrollY / totalHeight) * 100;
-    if (scrollProgress) scrollProgress.style.width = `${progress}%`;
-
-    if (window.scrollY > 40) {
-      navbar?.classList.add('scrolled');
-    } else {
-      navbar?.classList.remove('scrolled');
-    }
-
-    const sections = document.querySelectorAll('section[id]');
-    let current = '';
-
-    sections.forEach(section => {
-      const sectionTop = section.offsetTop - 120;
-      if (window.scrollY >= sectionTop) {
-        current = section.getAttribute('id');
-      }
-    });
-
-    navLinks.forEach(link => {
-      link.classList.remove('active');
-      if (link.getAttribute('href') === `#${current}`) {
-        link.classList.add('active');
-      }
-    });
-  });
-
-  if (mobileToggle && navLinksContainer) {
-    mobileToggle.addEventListener('click', () => {
-      navLinksContainer.classList.toggle('active');
-      mobileToggle.textContent = navLinksContainer.classList.contains('active') ? '✕' : '☰';
-    });
-
-    navLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        navLinksContainer.classList.remove('active');
-        if (mobileToggle) mobileToggle.textContent = '☰';
-      });
-    });
-  }
-}
-
-/* ==========================================================================
-   4. Theme Switcher (Dark / Light / Cyber)
-   ========================================================================== */
-function initThemeSwitch() {
-  const themeBtn = document.getElementById('theme-toggle');
-  if (!themeBtn) return;
-
-  const themes = ['dark', 'light', 'cyber'];
-  let currentThemeIdx = 0;
-
-  themeBtn.addEventListener('click', () => {
-    currentThemeIdx = (currentThemeIdx + 1) % themes.length;
-    const newTheme = themes[currentThemeIdx];
-
-    document.documentElement.setAttribute('data-theme', newTheme);
-    
-    if (newTheme === 'dark') themeBtn.textContent = '🌙';
-    else if (newTheme === 'light') themeBtn.textContent = '☀️';
-    else if (newTheme === 'cyber') themeBtn.textContent = '⚡';
-
-    showToast(`テーマを [ Neumorphism ${newTheme.toUpperCase()} ] に変更しました`);
+    // Play retro beep sound
+    play8BitSound(440 + Math.random() * 200, 0.08);
   });
 }
 
-/* ==========================================================================
-   5. Dynamic Content Rendering
-   ========================================================================== */
-function renderHeroStats() {
-  const statsContainer = document.getElementById('stats-grid');
-  if (!statsContainer) return;
+function spawnFloatingHeart(x, y, symbol = '💖') {
+  const particle = document.createElement('div');
+  particle.className = 'floating-heart';
+  particle.textContent = symbol;
+  particle.style.left = `${x}px`;
+  particle.style.top = `${y}px`;
 
-  statsContainer.innerHTML = PORTFOLIO_DATA.profile.stats.map(stat => `
-    <div class="stat-item neu-card">
-      <div class="stat-number">${stat.value}${stat.suffix}</div>
-      <div class="stat-label">${stat.label}</div>
-    </div>
-  `).join('');
+  document.body.appendChild(particle);
+  setTimeout(() => particle.remove(), 1200);
 }
 
-function renderSkills(categoryFilter = 'all') {
-  const skillsContainer = document.getElementById('skills-grid');
-  if (!skillsContainer) return;
+/* --------------------------------------------------------------------------
+   3. Fortune Teller System (おみくじ)
+   -------------------------------------------------------------------------- */
+function initFortuneSystem() {
+  const fortuneBtn = document.getElementById('draw-fortune-btn');
+  const fortuneRank = document.getElementById('fortune-rank');
+  const fortuneMsg = document.getElementById('fortune-message');
+  const fortuneBox = document.getElementById('fortune-result-box');
 
-  const filtered = categoryFilter === 'all' 
-    ? PORTFOLIO_DATA.skills 
-    : PORTFOLIO_DATA.skills.filter(s => s.category === categoryFilter);
+  if (!fortuneBtn) return;
 
-  skillsContainer.innerHTML = filtered.map(skill => `
-    <div class="skill-card neu-card">
-      <div class="skill-header">
-        <div class="skill-icon">${skill.icon}</div>
-        <div class="skill-title-wrap">
-          <div class="skill-name">${skill.name}</div>
-          <div class="skill-level-text">Proficiency: ${skill.level}%</div>
-        </div>
-      </div>
-      <div class="progress-bar-bg">
-        <div class="progress-bar-fill" style="width: ${skill.level}%"></div>
-      </div>
-      <p class="skill-desc">${skill.description}</p>
-      <div class="skill-tags">
-        ${skill.tags.map(t => `<span class="tag">${t}</span>`).join('')}
-      </div>
-    </div>
-  `).join('');
-}
+  fortuneBtn.addEventListener('click', () => {
+    play8BitSound(587, 0.1);
+    setTimeout(() => play8BitSound(880, 0.15), 100);
 
-function renderProjects(categoryFilter = 'all') {
-  const projectsContainer = document.getElementById('projects-grid');
-  if (!projectsContainer) return;
-
-  const filtered = categoryFilter === 'all'
-    ? PORTFOLIO_DATA.projects
-    : PORTFOLIO_DATA.projects.filter(p => p.category === categoryFilter);
-
-  projectsContainer.innerHTML = filtered.map(project => `
-    <div class="project-card neu-card" data-project-id="${project.id}">
-      <div class="project-img-wrapper">
-        <img src="${project.image}" alt="${project.title}" loading="lazy" />
-        <span class="project-category-badge">${project.categoryName}</span>
-      </div>
-      <div class="project-body">
-        <h3 class="project-title">${project.title}</h3>
-        <p class="project-summary">${project.summary}</p>
-        <div class="skill-tags" style="margin-bottom: 16px;">
-          ${project.tags.map(t => `<span class="tag">${t}</span>`).join('')}
-        </div>
-        <div class="project-footer">
-          <button class="btn" style="padding: 6px 16px; font-size: 0.85rem;" onclick="openProjectModal('${project.id}')">
-            詳細を見る 🔍
-          </button>
-          <div class="project-links">
-            <a href="${project.githubUrl}" target="_blank" class="icon-link" title="GitHub Code">💻</a>
-            <a href="${project.demoUrl}" target="_blank" class="icon-link" title="Live Preview">🚀</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  `).join('');
-}
-
-function renderTimeline() {
-  const timelineContainer = document.getElementById('timeline-wrapper');
-  if (!timelineContainer) return;
-
-  timelineContainer.innerHTML = PORTFOLIO_DATA.experiences.map(exp => `
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-card neu-card">
-        <div class="timeline-header">
-          <h4 class="timeline-role">${exp.role}</h4>
-          <span class="timeline-period">${exp.period}</span>
-        </div>
-        <div class="timeline-company">${exp.company}</div>
-        <p class="timeline-desc">${exp.description}</p>
-      </div>
-    </div>
-  `).join('');
-}
-
-/* ==========================================================================
-   6. Filtering Logic
-   ========================================================================== */
-function initFilterTabs() {
-  const skillTabs = document.querySelectorAll('.skill-tab');
-  skillTabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      skillTabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      renderSkills(tab.getAttribute('data-filter'));
-    });
-  });
-
-  const projectTabs = document.querySelectorAll('.project-tab');
-  projectTabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      projectTabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      renderProjects(tab.getAttribute('data-filter'));
-    });
-  });
-}
-
-/* ==========================================================================
-   7. Modal Dialog
-   ========================================================================== */
-function initModal() {
-  const overlay = document.getElementById('modal-overlay');
-  const closeBtn = document.getElementById('modal-close');
-
-  if (closeBtn && overlay) {
-    closeBtn.addEventListener('click', () => overlay.classList.remove('active'));
-    overlay.addEventListener('click', (e) => {
-      if (e.target === overlay) overlay.classList.remove('active');
-    });
-  }
-}
-
-window.openProjectModal = function(projectId) {
-  const project = PORTFOLIO_DATA.projects.find(p => p.id === projectId);
-  if (!project) return;
-
-  const overlay = document.getElementById('modal-overlay');
-  const modalBody = document.getElementById('modal-body-content');
-
-  if (overlay && modalBody) {
-    modalBody.innerHTML = `
-      <img src="${project.image}" alt="${project.title}" style="width:100%; height:260px; object-fit:cover; border-radius:16px; margin-bottom:20px; box-shadow: var(--neu-shadow-inset);" />
-      <span class="section-subtitle">${project.categoryName}</span>
-      <h2 style="font-family: var(--font-heading); font-size: 1.8rem; margin-bottom:14px;">${project.title}</h2>
-      <p style="color: var(--text-muted); font-size: 1.05rem; margin-bottom: 20px;">${project.description}</p>
-      
-      <h4 style="font-family: var(--font-heading); margin-bottom: 10px; color: var(--glow-emerald);">主な機能 & 実装ポイント</h4>
-      <ul style="list-style-type: none; margin-bottom: 24px;">
-        ${project.features.map(f => `<li style="padding: 6px 0; color: var(--text-muted); font-size: 0.95rem;">✨ ${f}</li>`).join('')}
-      </ul>
-
-      <h4 style="font-family: var(--font-heading); margin-bottom: 10px; color: var(--glow-emerald);">使用テクノロジー</h4>
-      <div class="skill-tags" style="margin-bottom: 28px;">
-        ${project.tags.map(t => `<span class="tag" style="font-size: 0.85rem; padding: 6px 14px;">${t}</span>`).join('')}
-      </div>
-
-      <div style="display: flex; gap: 14px;">
-        <a href="${project.demoUrl}" target="_blank" class="btn btn-primary">ライブデモを見る 🚀</a>
-        <a href="${project.githubUrl}" target="_blank" class="btn">GitHub リポジトリ 💻</a>
-      </div>
-    `;
-    overlay.classList.add('active');
-  }
-};
-
-/* ==========================================================================
-   8. 3D Card Tilt Effect
-   ========================================================================== */
-function initCardTiltEffect() {
-  document.addEventListener('mousemove', (e) => {
-    const avatarCard = document.querySelector('.avatar-card');
-    if (!avatarCard) return;
-
-    const rect = avatarCard.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-
-    const tiltX = (y / rect.height) * -12;
-    const tiltY = (x / rect.width) * 12;
-
-    avatarCard.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.02, 1.02, 1.02)`;
-  });
-}
-
-/* ==========================================================================
-   9. Scroll Reveal Animations
-   ========================================================================== */
-function initScrollAnimations() {
-  const observerOptions = {
-    threshold: 0.15,
-    rootMargin: '0px 0px -50px 0px'
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('reveal-active');
-      }
-    });
-  }, observerOptions);
-
-  document.querySelectorAll('.section-header, .neu-card, .timeline-item').forEach(el => {
-    observer.observe(el);
-  });
-}
-
-/* ==========================================================================
-   10. Contact Form & Toast
-   ========================================================================== */
-function initContactForm() {
-  const form = document.getElementById('contact-form');
-  if (!form) return;
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const name = document.getElementById('form-name')?.value;
-    const email = document.getElementById('form-email')?.value;
-    const message = document.getElementById('form-message')?.value;
-
-    if (!name || !email || !message) {
-      showToast('⚠️ すべての項目を入力してください', 'error');
-      return;
-    }
-
-    const submitBtn = form.querySelector('button[type="submit"]');
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.textContent = '送信中... ⏳';
-    }
+    if (fortuneMsg) fortuneMsg.textContent = "あんどうさんが運勢を判定中... 🔮";
+    if (fortuneRank) fortuneRank.textContent = "✨ ガチャガチャ... ✨";
 
     setTimeout(() => {
-      showToast(`✉️ ありがとう ${name} さん！メッセージを送信しました。`, 'success');
-      form.reset();
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'メッセージを送る 🚀';
+      const fortune = ANDO_DATA.fortunes[Math.floor(Math.random() * ANDO_DATA.fortunes.length)];
+      if (fortuneRank) {
+        fortuneRank.textContent = fortune.rank;
+        fortuneRank.style.color = fortune.color;
       }
-    }, 1200);
-  });
-}
+      if (fortuneMsg) fortuneMsg.textContent = fortune.message;
 
-function showToast(message, type = 'success') {
-  const container = document.getElementById('toast-container');
-  if (!container) return;
-
-  const toast = document.createElement('div');
-  toast.className = 'toast';
-  toast.innerHTML = `<span>${message}</span>`;
-
-  container.appendChild(toast);
-  setTimeout(() => toast.classList.add('show'), 50);
-
-  setTimeout(() => {
-    toast.classList.remove('show');
-    setTimeout(() => toast.remove(), 400);
-  }, 3500);
-}
-
-/* ==========================================================================
-   11. Interactive Playground Component
-   ========================================================================== */
-function initPlayground() {
-  const promptBtn = document.getElementById('playground-run-btn');
-  const outputBox = document.getElementById('playground-output');
-  if (!promptBtn || !outputBox) return;
-
-  const responses = [
-    "✨ 「design-v2 ブランチでは Neumorphism & Soft Glow デザインを採用。凹凸のある繊細な立体感と柔らかな発光エフェクトが特徴です！」",
-    "🤖 「Alex RayはTypeScript, Next.js, Node.jsのフルスタック開発およびUI/UXデザイン最適化に強みを持っています。」",
-    "🚀 「現在、新しい受託開発やフリーランスプロジェクトを受付中です！お気軽にお問い合わせフォームからメッセージをお送りください。」"
-  ];
-
-  let idx = 0;
-  promptBtn.addEventListener('click', () => {
-    outputBox.textContent = "Neumorphic AI Executing query...";
-    setTimeout(() => {
-      outputBox.textContent = responses[idx];
-      idx = (idx + 1) % responses.length;
+      // Spawn celebratory particles
+      for (let i = 0; i < 8; i++) {
+        const x = window.innerWidth / 2 + (Math.random() - 0.5) * 200;
+        const y = window.innerHeight / 2 + (Math.random() - 0.5) * 100;
+        spawnFloatingHeart(x, y, '🌟');
+      }
     }, 600);
   });
+}
+
+/* --------------------------------------------------------------------------
+   4. Render Data (Stats & Item Museum)
+   -------------------------------------------------------------------------- */
+function renderProfileStats() {
+  const statsContainer = document.getElementById('stats-row');
+  if (!statsContainer) return;
+
+  statsContainer.innerHTML = ANDO_DATA.profile.stats.map(s => `
+    <div class="stat-card">
+      <div class="stat-val">${s.value}</div>
+      <div class="stat-lbl">${s.label} (${s.unit})</div>
+    </div>
+  `).join('');
+}
+
+function renderItemMuseum() {
+  const itemsContainer = document.getElementById('items-grid');
+  if (!itemsContainer) return;
+
+  itemsContainer.innerHTML = ANDO_DATA.items.map(item => `
+    <div class="item-card">
+      <div class="item-icon-box">
+        ${item.isImage ? `<img src="${item.icon}" alt="${item.name}" />` : item.icon}
+      </div>
+      <div class="item-name">${item.name}</div>
+      <span class="item-rarity">${item.rarity}</span>
+      <p class="item-desc">${item.desc}</p>
+    </div>
+  `).join('');
+}
+
+/* --------------------------------------------------------------------------
+   5. Web Audio API 8-Bit Sound Synthesizer
+   -------------------------------------------------------------------------- */
+let audioCtx = null;
+
+function initSoundSystem() {
+  const soundBtn = document.getElementById('sound-toggle-btn');
+  if (!soundBtn) return;
+
+  soundBtn.addEventListener('click', () => {
+    isAudioEnabled = !isAudioEnabled;
+    soundBtn.textContent = isAudioEnabled ? "🎵 BGM: ON" : "🔇 BGM: OFF";
+    if (isAudioEnabled) play8BitSound(523.25, 0.1);
+  });
+}
+
+function play8BitSound(freq = 440, duration = 0.1) {
+  if (!isAudioEnabled) return;
+  try {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+
+    osc.type = 'square'; // 8-bit retro square wave
+    osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+    gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    osc.start();
+    osc.stop(audioCtx.currentTime + duration);
+  } catch (e) {
+    // Audio Context unlock catch
+  }
 }
