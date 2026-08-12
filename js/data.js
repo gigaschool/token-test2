@@ -1,70 +1,70 @@
 /**
- * Ando-san's 8-Bit World Data Configuration
+ * Ando-san's Neon Cyber World Data Configuration
  */
 
 const ANDO_DATA = {
   profile: {
     name: "あんどうさん (ANDO-SAN)",
-    role: "8-Bit 癒やし系マスコット & ゆるふわエンジニア",
-    phrase: "「ぷにっ♪ 今日も一日、のんびり笑顔でいこうね！」",
+    role: "CYBER NEON 癒やし系AIマスコット & フルスロットルエンジニア",
+    phrase: "「ぷにっ⚡ 今日も一日、最高出力の笑顔でいこうね！」",
     stats: [
-      { label: "癒やしパワー", value: "9999", unit: "pts" },
-      { label: "ぷにぷに度", value: "1000", unit: "%" },
-      { label: "愛され歴", value: "8", unit: "Bit" },
-      { label: "笑顔の眩しさ", value: "MAX", unit: "✨" }
+      { label: "NEON POWER", value: "9999", unit: "GW" },
+      { label: "ぷにぷに波長", value: "1000", unit: "Hz" },
+      { label: "愛されクロック", value: "8.8", unit: "GHz" },
+      { label: "笑顔ネオン照度", value: "MAX", unit: "⚡" }
     ],
-    hobbies: ["どら焼きの食べ比べ", "日向ぼっこ", "ドット絵コードの鑑賞", "お茶を淹れること"]
+    hobbies: ["サイバーどら焼きのデータ解析", "ネオン粒子線浴", "コードの完全自動デバッグ", "特製サイバー緑茶の抽出"]
   },
 
   fortunes: [
-    { rank: "🌸 超大吉 🌸", message: "今日は最高の1日になるよ！甘いどら焼きを食べると運気爆上がり♪", color: "#ff477e" },
-    { rank: "✨ 大吉 ✨", message: "あんどうさんがあなたの味方！焦らず笑顔でのんびり進もうね！", color: "#00f5d4" },
-    { rank: "⭐ 中吉 ⭐", message: "新しい発見があるかも！休憩中においしいお茶を飲んでみてね。", color: "#ffb703" },
-    { rank: "🍀 吉 🍀", message: "静かで平和な良い日。あんどうさんの笑顔パワーを分けてあげるね！", color: "#a855f7" },
-    { rank: "💖 あんどう吉 💖", message: "あんどうさんと目が合ったあなた！今日はとにかくラッキーだよ！", color: "#ff85a1" }
+    { rank: "⚡ OVERDRIVE 大吉 ⚡", message: "運勢レベル最大出力！甘いネオンどら焼きを補給すると全知全能モードに突入♪", color: "#ff007f" },
+    { rank: "🌟 CYBER 大吉 🌟", message: "あんどうさんのサイバーシールドがあなたを完全護衛！自信を持って進もう！", color: "#00f0ff" },
+    { rank: "✨ HIGH VOLTAGE 中吉 ✨", message: "新しいアイデアが閃く予感！サイバー抹茶ラテでクールダウンしてみよう！", color: "#ffe600" },
+    { rank: "🍀 SYNC 吉 🍀", message: "穏やかで安定したコード実行環境。あんどうさんのスマイルパッチを共有するね！", color: "#00ff9f" },
+    { rank: "💖 NEON あんどう吉 💖", message: "あん quick タップに反応！今日は電脳空間で最高の奇跡が起きるよ！", color: "#9d4edd" }
   ],
 
   quotes: [
-    "ぷにっ💕 なでなでしてくれてありがとう！",
-    "えへへ♪ あんどうさんは今日も元気だよ！",
-    "バグが出ても大丈夫！深呼吸してみようね 🍵",
-    "きみのこと、いつでも応援してるからね！✨",
-    "今日のおやつは何かな〜？どら焼きかな〜？",
-    "なでなでメーター上昇中！ありがと〜！"
+    "ぷiっ⚡ なでなでアクセスありがとう！",
+    "えへへ♪ あんどうさんのネオンコアは今日もフル稼働だよ！",
+    "404バグも焦らず深呼吸！サイバー茶湯でリセットね 🍵",
+    "きみの可能性は無限大！全力でエンパワーするよ！⚡",
+    "本日のプロセッサ消費燃料は…サイバーどら焼きかな〜！",
+    "なでなでカウンター上昇中！ネオンエネルギーチャージ完了！"
   ],
 
   items: [
     {
       id: "item-1",
-      name: "名物 ぷにぷにどら焼き",
+      name: "特製 ぷにぷにサイバーどら焼き",
       icon: "assets/images/ando-dorayaki.jpg",
       isImage: true,
-      desc: "あんどうさんの大好物！皮はもちもち、あんはほどよい甘さの極上品。",
-      rarity: "Legendary 🌟"
+      desc: "高エネルギー粒子を練り込んだあんどうさんの主燃料！一口で笑顔100倍！",
+      rarity: "LEGENDARY ⚡"
     },
     {
       id: "item-2",
-      name: "8-Bit ハートの結晶",
+      name: "CYBER NEON ハートの結晶",
       icon: "💖",
       isImage: false,
-      desc: "あんどうさんを撫でると溢れ出るとっても温かいハート。",
-      rarity: "Super Rare ✨"
+      desc: "あんどうさんをタップすると溢れ出る高純度プラズマハート。",
+      rarity: "SUPER RARE 🌟"
     },
     {
       id: "item-3",
-      name: "特製 ほっこり緑茶",
+      name: "量子冷却 ほっこり緑茶",
       icon: "🍵",
       isImage: false,
-      desc: "一口飲むだけで日頃の疲れがすーっと吹き飛ぶ魔法のお茶。",
-      rarity: "Rare 🍀"
+      desc: "オーバーヒートした頭脳を一瞬でクリアにする特製サイバー緑茶。",
+      rarity: "RARE 🍀"
     },
     {
       id: "item-4",
-      name: "ピカピカネクタイ",
+      name: "光るネオンネクタイ",
       icon: "👔",
       isImage: false,
-      desc: "あんどうさんのチャームポイント！結び目がいつでも100点満点。",
-      rarity: "Special 🎀"
+      desc: "あん quick スタイルの象徴！ネオン光でバグを蹴散らす最強アタッチメント。",
+      rarity: "SPECIAL ⚡"
     }
   ]
 };

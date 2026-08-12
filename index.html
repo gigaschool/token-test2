@@ -3,74 +3,74 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>あんどうさん (ANDO-SAN) 8-Bit レトロポップワールド 💖</title>
-  <meta name="description" content="ドット絵のかわいいキャラクター『あんどうさん』の公式レトロポップWebサイト！撫でるとハートが飛び出す癒やし全開インタラクティブ体験！" />
-  <meta name="keywords" content="あんどうさん, 8bit, ドット絵, ピクセルアート, かわいいキャラクター, レトロポップ, 癒やし" />
+  <title>あんどうさん (ANDO-SAN) // NEON CYBER WORLD ⚡</title>
+  <meta name="description" content="ドット絵のかわいいキャラクター『あんどうさん』の公式サイバーネオンWebサイト！タップしてなでなでするとサイバーネオンハートが弾ける！" />
+  <meta name="keywords" content="あんどうさん, 8bit, サイバー, ネオンデザイン, ドット絵, ピクセルアート, かわいい, レトロポップ" />
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-  <!-- Floating 8-Bit Navbar -->
+  <!-- Floating Cyber Neon Navbar -->
   <header class="navbar">
     <div class="nav-container">
       <a href="#hero" class="logo">
-        <span class="logo-icon">💖</span>
-        <span>ANDO<span style="color: var(--pink-dark);">WORLD</span></span>
+        <span class="logo-icon">⚡</span>
+        <span>ANDO<span class="neon-text-pink">.NEON</span></span>
       </a>
 
       <ul class="nav-links">
-        <li><a href="#hero" class="nav-link active">Home</a></li>
-        <li><a href="#about" class="nav-link">あんどうさんとは？</a></li>
-        <li><a href="#fortune" class="nav-link">おみくじ</a></li>
-        <li><a href="#items" class="nav-link">ひみつ図鑑</a></li>
+        <li><a href="#hero" class="nav-link active">MAIN</a></li>
+        <li><a href="#about" class="nav-link">SYSTEM_INFO</a></li>
+        <li><a href="#fortune" class="nav-link">FORTUNE_MATRIX</a></li>
+        <li><a href="#items" class="nav-link">ITEM_VAULT</a></li>
       </ul>
 
       <div style="display: flex; gap: 10px; align-items: center;">
-        <button id="sound-toggle-btn" class="sound-toggle-btn">🎵 BGM: ON</button>
+        <button id="sound-toggle-btn" class="sound-toggle-btn">🔊 SYNTH: ON</button>
       </div>
     </div>
   </header>
 
   <main>
-    <!-- 1. Hero Section - Ando Interactive Eyecatch -->
+    <!-- 1. Hero Section - Ando Cyber Interactive Eyecatch -->
     <section id="hero" class="hero-section">
       <div class="container">
         <div class="hero-grid">
           <!-- Text Introduction -->
           <div>
-            <span class="pixel-badge">✨ 癒やしパワー 1000% 全開！</span>
+            <span class="pixel-badge">⚡ NEON OVERDRIVE // 癒やしパワー 1000% ⚡</span>
             
-            <h1 class="section-title" style="font-size: 3rem; margin-bottom: 16px;">
-              ぷにぷに笑顔の<br />
-              <span style="color: var(--pink-dark);">あんどうさんワールド！</span>
+            <h1 class="section-title" style="font-size: 3.2rem; margin-bottom: 18px; line-height: 1.2;">
+              電脳空間のアイドル<br />
+              <span class="neon-text-pink">あんどうさん</span><span class="neon-text-cyan">ワールド！</span>
             </h1>
 
-            <p style="font-size: 1.15rem; color: #495057; margin-bottom: 28px; font-weight: bold;">
-              8-Bitの世界からやってきた愛されキャラ「あんどうさん」公式Webサイト♪<br />
-              あんどうさんをタップして撫でてあげると、ハートがポンポン飛び出すよ！
+            <p style="font-size: 1.15rem; color: var(--text-secondary); margin-bottom: 30px; font-weight: 500;">
+              8-Bit電脳空間から舞い降りたネオンマスコット「あんどうさん」公式Webサイト⚡<br />
+              あん quick タップでなでなですると、ネオンハート＆プラズマエネルギーが爆発！
             </p>
 
             <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-              <a href="#fortune" class="cute-btn cute-btn-primary">今日の運勢を占う 🔮</a>
-              <a href="#items" class="cute-btn cute-btn-secondary">ひみつ図鑑を見る どら焼き</a>
+              <a href="#fortune" class="cute-btn cute-btn-primary">🔮 NEON運勢ガチャ</a>
+              <a href="#items" class="cute-btn cute-btn-secondary">どら焼き VAULT 🍩</a>
             </div>
           </div>
 
-          <!-- Main Character Eyecatch: Ando 8-Bit -->
+          <!-- Main Character Eyecatch: Ando Hologram 8-Bit -->
           <div class="ando-character-wrapper">
             <div class="ando-avatar-box" id="ando-avatar-box" title="あんどうさんをタップして撫でてね！">
               <div class="ando-speech-bubble" id="ando-speech-bubble">
-                ぷにっ💕 タップして撫でてね！
+                ぷにっ⚡ タップして撫でてね！
               </div>
-              <img src="assets/images/ando-8bit.png" alt="8-Bit Ando-san Cute Eyecatch Character" class="ando-avatar-img" />
+              <img src="assets/images/ando-8bit.png" alt="Neon Hologram Ando-san Character" class="ando-avatar-img" />
             </div>
 
             <div class="pet-counter-badge">
-              <span>💖 なでなでカウンター:</span>
+              <span>💖 NEON PET COUNTER:</span>
               <span id="pet-count-number" class="pet-count-number">0</span>
-              <span>回</span>
+              <span>HITS</span>
             </div>
           </div>
         </div>
@@ -87,7 +87,7 @@
       <div class="container">
         <div class="pixel-window">
           <div class="pixel-window-header">
-            <span>ABOUT_ANDO_SAN.EXE // あんどうさんのプロフィール</span>
+            <span>SYS_DIAGNOSTICS // ANDO_PROFILE.LOG</span>
             <div class="window-dots">
               <span class="window-dot dot-red"></span>
               <span class="window-dot dot-yellow"></span>
@@ -95,27 +95,27 @@
             </div>
           </div>
 
-          <div class="pixel-window-body" style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center;">
+          <div class="pixel-window-body" style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 32px; align-items: center;">
             <div>
-              <h2 style="font-family: var(--font-round); font-size: 1.8rem; color: var(--pink-dark); margin-bottom: 14px; font-weight: 900;">
-                👔 あんどうさん (ANDO-SAN) って？
+              <h2 style="font-family: var(--font-neon); font-size: 1.8rem; color: var(--neon-cyan); margin-bottom: 16px; font-weight: 800; text-shadow: 0 0 10px rgba(0, 240, 255, 0.6);">
+                👔 SYSTEM SPEC: あんどうさん (ANDO-SAN)
               </h2>
-              <p style="font-size: 1.05rem; color: #343a40; margin-bottom: 16px; font-weight: bold;">
-                いつもびしっとスーツを着こなしているけれど、心はとっても優しくてぷにぷに。
-                みんなのストレスやコードのバグを笑顔で包み込んで消し去ってしまう魔法の癒やしパワーを持っています。
+              <p style="font-size: 1.05rem; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.8;">
+                ビシッと決めたスーツとネクタイの裏に、無限の優しさと「ぷにぷにパワー」を秘めた最高高度AIマスコット。
+                サーバーエラーもコードのバグも、あんどうさんの笑顔スマイルが放つサイバー波動ですべてハッピーに書き換えます。
               </p>
               
-              <ul style="list-style-type: none; font-family: var(--font-pixel); font-size: 1.15rem; color: #2b2d42;">
-                <li style="padding: 4px 0;">🍡 好きな食べ物: もちもちのどら焼き・お抹茶</li>
-                <li style="padding: 4px 0;">👔 チャームポイント: 完璧に整ったネクタイの結び目</li>
-                <li style="padding: 4px 0;">✨ 特技: 笑顔でみんなをハッピーにすること！</li>
+              <ul style="list-style-type: none; font-family: var(--font-pixel); font-size: 1.15rem; color: var(--neon-pink); display: flex; flex-direction: column; gap: 8px;">
+                <li style="padding: 6px 12px; background: rgba(255, 0, 127, 0.08); border-left: 3px solid var(--neon-pink); border-radius: 4px;">🍡 FUEL: もちもちネオンどら焼き & 宇治抹茶ラテ</li>
+                <li style="padding: 6px 12px; background: rgba(0, 240, 255, 0.08); border-left: 3px solid var(--neon-cyan); border-radius: 4px; color: var(--neon-cyan);">👔 SIGNATURE: 光るサイバーネクタイ & ぷにぷにほっぺ</li>
+                <li style="padding: 6px 12px; background: rgba(0, 255, 159, 0.08); border-left: 3px solid var(--neon-green); border-radius: 4px; color: var(--neon-green);">✨ SKILL: 笑顔で全バグを即時パッチ消去！</li>
               </ul>
             </div>
 
-            <div style="background: var(--bg-pink-light); padding: 24px; border-radius: 16px; border: var(--pixel-border-sm); text-align: center;">
-              <img src="assets/images/ando-dorayaki.jpg" alt="Ando-san Favorite Snack Dorayaki" style="width: 160px; height: 160px; object-fit: cover; border-radius: 16px; border: var(--pixel-border-sm); margin-bottom: 12px;" />
-              <div style="font-family: var(--font-round); font-weight: 800; font-size: 1.1rem; color: var(--pink-dark);">
-                あんどうさんのエネルギー源「特製どら焼き」
+            <div class="cyber-highlight-card">
+              <img src="assets/images/ando-dorayaki.jpg" alt="Ando-san Cyber Dorayaki" class="cyber-dorayaki-img" />
+              <div style="font-family: var(--font-pixel); font-weight: 700; font-size: 1.05rem; color: var(--neon-yellow); margin-top: 10px;">
+                ⚡ ENERGY SOURCE: 特製サイバーどら焼き
               </div>
             </div>
           </div>
@@ -127,13 +127,13 @@
     <section id="fortune" class="section">
       <div class="container">
         <div class="section-header">
-          <span class="pixel-badge">🔮 今日の運勢ガチャ</span>
-          <h2 class="section-title">あんどうさんのおみくじ</h2>
+          <span class="pixel-badge">🔮 QUANTUM FORTUNE MATRIX</span>
+          <h2 class="section-title">サイバーおみくじ ガチャ</h2>
         </div>
 
         <div class="pixel-window">
           <div class="pixel-window-header">
-            <span>FORTUNE_TELLER.BAT // あんどうさんの占い部屋</span>
+            <span>NEON_PREDICTION.EXE // 運勢解析マトリクス</span>
             <div class="window-dots">
               <span class="window-dot dot-red"></span>
               <span class="window-dot dot-yellow"></span>
@@ -142,20 +142,20 @@
           </div>
 
           <div class="pixel-window-body fortune-card">
-            <p style="font-size: 1.1rem; font-weight: bold; margin-bottom: 20px;">
-              ボタンを押すと、あんどうさんが今日のあなたのおみくじを引いてくれるよ！
+            <p style="font-size: 1.1rem; color: var(--text-primary); font-weight: 600; margin-bottom: 24px;">
+              ボタンを押すと、あんどうさんの量子AIが今日のあなたの運勢コードを解析！
             </p>
 
             <button class="cute-btn cute-btn-primary" id="draw-fortune-btn">
-              おみくじを引いてみる！ 🎲
+              ⚡ 運勢コードをガチャる！ 🎲
             </button>
 
             <div class="fortune-result-box" id="fortune-result-box">
-              <div class="fortune-rank" id="fortune-rank" style="color: var(--pink-dark);">
-                ❓ ボタンを押してね！
+              <div class="fortune-rank" id="fortune-rank" style="color: var(--neon-cyan);">
+                ❓ ボタンを押して解析開始！
               </div>
               <div class="fortune-message" id="fortune-message">
-                あんどうさんがあなたにラッキーなメッセージをお届けします♪
+                あんどうさんがあなたにラッキーメッセージをターミナル送信します♪
               </div>
             </div>
           </div>
@@ -167,8 +167,8 @@
     <section id="items" class="section">
       <div class="container">
         <div class="section-header">
-          <span class="pixel-badge">🎁 あんどうさんの宝物</span>
-          <h2 class="section-title">ひみつ図鑑 & アイテム</h2>
+          <span class="pixel-badge">🎁 CYBER ITEM VAULT</span>
+          <h2 class="section-title">ひみつ図鑑 & 宝物アーカイブ</h2>
         </div>
 
         <div class="items-grid" id="items-grid">
@@ -181,7 +181,7 @@
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
-      💖 2026 <strong>ANDO-SAN 8-BIT WORLD</strong>. Powered by Cute Pixel Art & Love.
+      ⚡ 2026 <strong>ANDO-SAN // NEON CYBER WORLD</strong>. Powered by Cyber Pixel Art & Neon Power.
     </div>
   </footer>
 

@@ -1,9 +1,9 @@
 /**
- * Ando-san's 8-Bit World - Interactive Logic
+ * Ando-san's Neon Cyber World - Dynamic Interactive Logic
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  initSparkleCanvas();
+  initNeonParticleCanvas();
   initAndoInteractions();
   initFortuneSystem();
   renderProfileStats();
@@ -12,9 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* --------------------------------------------------------------------------
-   1. Sparkle & Floating Hearts Canvas Background
+   1. Cyber Neon Matrix & Energy Dust Canvas Background
    -------------------------------------------------------------------------- */
-function initSparkleCanvas() {
+function initNeonParticleCanvas() {
   const canvas = document.createElement('canvas');
   canvas.id = 'sparkle-canvas';
   document.body.prepend(canvas);
@@ -23,51 +23,83 @@ function initSparkleCanvas() {
   let width = canvas.width = window.innerWidth;
   let height = canvas.height = window.innerHeight;
 
-  const sparkles = [];
-  const sparkleCount = 35;
-  const colors = ['#ff7597', '#52b788', '#ffb703', '#b5179e', '#ffd166'];
+  const particles = [];
+  const particleCount = 45;
+  const colors = ['#ff007f', '#00f0ff', '#ffe600', '#00ff9f', '#9d4edd'];
 
   window.addEventListener('resize', () => {
     width = canvas.width = window.innerWidth;
     height = canvas.height = window.innerHeight;
   });
 
-  class Sparkle {
+  class NeonParticle {
     constructor() { this.reset(); }
     reset() {
       this.x = Math.random() * width;
       this.y = Math.random() * height;
-      this.size = Math.random() * 4 + 2;
-      this.vy = (Math.random() * 0.3) + 0.1;
+      this.size = Math.random() * 3 + 1.5;
+      this.vx = (Math.random() - 0.5) * 0.4;
+      this.vy = (Math.random() * -0.6) - 0.2;
       this.alpha = Math.random() * 0.7 + 0.3;
       this.color = colors[Math.floor(Math.random() * colors.length)];
+      this.pulseSpeed = Math.random() * 0.03 + 0.01;
     }
     update() {
-      this.y -= this.vy;
-      if (this.y < -10) this.reset();
+      this.x += this.vx;
+      this.y += this.vy;
+      this.alpha += Math.sin(Date.now() * this.pulseSpeed) * 0.01;
+      if (this.y < -10 || this.x < -10 || this.x > width + 10) this.reset();
     }
     draw() {
       ctx.save();
-      ctx.globalAlpha = this.alpha;
+      ctx.globalAlpha = Math.max(0.1, Math.min(1, this.alpha));
       ctx.fillStyle = this.color;
-      // Draw 8-bit square star
-      ctx.fillRect(this.x, this.y, this.size, this.size);
+      ctx.shadowColor = this.color;
+      ctx.shadowBlur = 10;
+      
+      // Draw neon square / diamond
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
       ctx.restore();
     }
   }
 
-  for (let i = 0; i < sparkleCount; i++) sparkles.push(new Sparkle());
+  for (let i = 0; i < particleCount; i++) particles.push(new NeonParticle());
 
   function animate() {
     ctx.clearRect(0, 0, width, height);
-    sparkles.forEach(s => { s.update(); s.draw(); });
+
+    // Draw subtle cyber grid lines between nearby particles
+    for (let i = 0; i < particles.length; i++) {
+      particles[i].update();
+      particles[i].draw();
+
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 90) {
+          ctx.save();
+          ctx.globalAlpha = (1 - dist / 90) * 0.15;
+          ctx.strokeStyle = particles[i].color;
+          ctx.lineWidth = 0.8;
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+          ctx.restore();
+        }
+      }
+    }
+
     requestAnimationFrame(animate);
   }
   animate();
 }
 
 /* --------------------------------------------------------------------------
-   2. Ando-san Click / Stroke Interaction & Floating Particles
+   2. Ando-san Click / Stroke Interaction & Neon Particles
    -------------------------------------------------------------------------- */
 let strokeCount = 0;
 let isAudioEnabled = true;
@@ -79,13 +111,13 @@ function initAndoInteractions() {
 
   if (!andoAvatarBox) return;
 
-  const heartSymbols = ['💖', '🌸', '✨', '⭐', '🎀', 'どら焼き'];
+  const cyberSymbols = ['⚡', '💖', '✨', '🌟', '🌌', '🍩', '💎'];
 
   andoAvatarBox.addEventListener('click', (e) => {
     strokeCount++;
     if (counterVal) counterVal.textContent = strokeCount;
 
-    // Random Speech Bubble Update
+    // Random Cyber Speech Bubble Update
     if (speechBubble) {
       const quote = ANDO_DATA.quotes[Math.floor(Math.random() * ANDO_DATA.quotes.length)];
       speechBubble.textContent = quote;
@@ -94,20 +126,20 @@ function initAndoInteractions() {
       speechBubble.style.animation = 'speech-pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
     }
 
-    // Spawn 5 Floating Hearts on click
-    for (let i = 0; i < 4; i++) {
-      const offsetX = (Math.random() - 0.5) * 60;
-      const offsetY = (Math.random() - 0.5) * 40;
-      const symbol = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
-      spawnFloatingHeart(e.clientX + offsetX, e.clientY + offsetY, symbol);
+    // Spawn 5 Floating Neon Particles on click
+    for (let i = 0; i < 5; i++) {
+      const offsetX = (Math.random() - 0.5) * 80;
+      const offsetY = (Math.random() - 0.5) * 50;
+      const symbol = cyberSymbols[Math.floor(Math.random() * cyberSymbols.length)];
+      spawnFloatingNeonParticle(e.clientX + offsetX, e.clientY + offsetY, symbol);
     }
 
-    // Play retro beep sound
-    play8BitSound(440 + Math.random() * 200, 0.08);
+    // Play cyber synth chime sound
+    playCyberSynthSound(520 + Math.random() * 300, 0.12);
   });
 }
 
-function spawnFloatingHeart(x, y, symbol = '💖') {
+function spawnFloatingNeonParticle(x, y, symbol = '⚡') {
   const particle = document.createElement('div');
   particle.className = 'floating-heart';
   particle.textContent = symbol;
@@ -119,43 +151,54 @@ function spawnFloatingHeart(x, y, symbol = '💖') {
 }
 
 /* --------------------------------------------------------------------------
-   3. Fortune Teller System (おみくじ)
+   3. Quantum Fortune Teller System (おみくじ)
    -------------------------------------------------------------------------- */
 function initFortuneSystem() {
   const fortuneBtn = document.getElementById('draw-fortune-btn');
   const fortuneRank = document.getElementById('fortune-rank');
   const fortuneMsg = document.getElementById('fortune-message');
-  const fortuneBox = document.getElementById('fortune-result-box');
 
   if (!fortuneBtn) return;
 
   fortuneBtn.addEventListener('click', () => {
-    play8BitSound(587, 0.1);
-    setTimeout(() => play8BitSound(880, 0.15), 100);
+    playCyberSynthSound(600, 0.1);
+    setTimeout(() => playCyberSynthSound(900, 0.15), 100);
 
-    if (fortuneMsg) fortuneMsg.textContent = "あんどうさんが運勢を判定中... 🔮";
-    if (fortuneRank) fortuneRank.textContent = "✨ ガチャガチャ... ✨";
+    if (fortuneMsg) fortuneMsg.textContent = "⚡ 量子AIが運勢マトリクスを走査中... 🔮";
+    if (fortuneRank) fortuneRank.textContent = "✨ ANALYZING MATRIX... ✨";
+
+    // Matrix Glitch Text Rolling Effect
+    let glitchInterval = setInterval(() => {
+      if (fortuneRank) {
+        const glitchChars = ['⚡', '💖', '0101', 'CYBER', 'OVERDRIVE', 'SYNC'];
+        fortuneRank.textContent = glitchChars[Math.floor(Math.random() * glitchChars.length)];
+      }
+    }, 80);
 
     setTimeout(() => {
+      clearInterval(glitchInterval);
       const fortune = ANDO_DATA.fortunes[Math.floor(Math.random() * ANDO_DATA.fortunes.length)];
       if (fortuneRank) {
         fortuneRank.textContent = fortune.rank;
         fortuneRank.style.color = fortune.color;
+        fortuneRank.style.textShadow = `0 0 12px ${fortune.color}`;
       }
       if (fortuneMsg) fortuneMsg.textContent = fortune.message;
 
       // Spawn celebratory particles
-      for (let i = 0; i < 8; i++) {
-        const x = window.innerWidth / 2 + (Math.random() - 0.5) * 200;
-        const y = window.innerHeight / 2 + (Math.random() - 0.5) * 100;
-        spawnFloatingHeart(x, y, '🌟');
+      for (let i = 0; i < 10; i++) {
+        const x = window.innerWidth / 2 + (Math.random() - 0.5) * 260;
+        const y = window.innerHeight / 2 + (Math.random() - 0.5) * 140;
+        spawnFloatingNeonParticle(x, y, '🌟');
       }
-    }, 600);
+
+      playCyberSynthSound(1046.5, 0.25);
+    }, 700);
   });
 }
 
 /* --------------------------------------------------------------------------
-   4. Render Data (Stats & Item Museum)
+   4. Render Profile Stats & Cyber Item Vault
    -------------------------------------------------------------------------- */
 function renderProfileStats() {
   const statsContainer = document.getElementById('stats-row');
@@ -186,7 +229,7 @@ function renderItemMuseum() {
 }
 
 /* --------------------------------------------------------------------------
-   5. Web Audio API 8-Bit Sound Synthesizer
+   5. Cyber Dual-Oscillator Web Audio Synthesizer
    -------------------------------------------------------------------------- */
 let audioCtx = null;
 
@@ -196,30 +239,39 @@ function initSoundSystem() {
 
   soundBtn.addEventListener('click', () => {
     isAudioEnabled = !isAudioEnabled;
-    soundBtn.textContent = isAudioEnabled ? "🎵 BGM: ON" : "🔇 BGM: OFF";
-    if (isAudioEnabled) play8BitSound(523.25, 0.1);
+    soundBtn.textContent = isAudioEnabled ? "🔊 SYNTH: ON" : "🔇 SYNTH: OFF";
+    if (isAudioEnabled) playCyberSynthSound(659.25, 0.15);
   });
 }
 
-function play8BitSound(freq = 440, duration = 0.1) {
+function playCyberSynthSound(freq = 440, duration = 0.12) {
   if (!isAudioEnabled) return;
   try {
     if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const osc = audioCtx.createOscillator();
+    
+    // Dual Oscillator for Cyber Synth Harmonics
+    const osc1 = audioCtx.createOscillator();
+    const osc2 = audioCtx.createOscillator();
     const gain = audioCtx.createGain();
 
-    osc.type = 'square'; // 8-bit retro square wave
-    osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+    osc1.type = 'sawtooth';
+    osc2.type = 'sine';
 
-    gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+    osc1.frequency.setValueAtTime(freq, audioCtx.currentTime);
+    osc2.frequency.setValueAtTime(freq * 1.5, audioCtx.currentTime); // 5th Harmonic
+
+    gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
     gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
 
-    osc.connect(gain);
+    osc1.connect(gain);
+    osc2.connect(gain);
     gain.connect(audioCtx.destination);
 
-    osc.start();
-    osc.stop(audioCtx.currentTime + duration);
+    osc1.start();
+    osc2.start();
+    osc1.stop(audioCtx.currentTime + duration);
+    osc2.stop(audioCtx.currentTime + duration);
   } catch (e) {
-    // Audio Context unlock catch
+    // Audio Context catch
   }
 }
